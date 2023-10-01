@@ -31,8 +31,8 @@ while True:
     while True:
         # Receive data from the client
         data = client_socket.recv(1024)
-        #if not data:
-        #    break
+        if not data:
+            break
 
         # Convert bytes to string
         received_message = data.decode()
