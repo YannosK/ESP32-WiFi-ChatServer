@@ -1,10 +1,12 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-
+const int gpio19 = 19;  // GPIO pin 19
+const int gpio16 = 16;  // GPIO pin 16
 
 void ConnectToWiFi(const char* WIFI_NETWORK, const char* WIFI_PASSWORD);
 void ConnectToServer(IPAddress server);
+void ClientRead(void);
 
 int status = WL_IDLE_STATUS;
 
@@ -18,6 +20,10 @@ WiFiClient client;
 void setup() {
   Serial.begin(115200);
 
+  pinMode(gpio19, OUTPUT);  // Set GPIO19 as an output
+  pinMode(gpio16, INPUT);   // Set GPIO16 as an input
+  attachInterrupt(digitalPinToInterrupt(gpio16), ClientRead, RISING);
+
   char WiFi_ssid[32] = "HOME_EXT";
   char WiFi_pswd[32] = "123456789";
 
@@ -30,12 +36,12 @@ void setup() {
 void loop() {
 
   while(client.connected()){
-    // if there are incoming bytes available from the server, read them and print them:
-    while(client.available()) {
-      char c = client.read();
-      Serial.write(c);
-    }
 
+    while(client.available()) {
+      digitalWrite(gpio19, HIGH);
+    }
+    digitalWrite(gpio19, LOW);
+    
     while(Serial.available())
     {
       String msg_to_client = Serial.readString();
@@ -83,4 +89,14 @@ void ConnectToServer(IPAddress server)
   if (client.connected()) {
     Serial.println("connected to server");
   }  
+}
+
+
+void ClientRead(void)
+{
+  // if there are incoming bytes available from the server, read them and print them:
+    while(client.available()) {      
+      char c = client.read();
+      Serial.write(c);
+    }
 }
