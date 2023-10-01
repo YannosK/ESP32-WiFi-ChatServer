@@ -31,7 +31,7 @@ while True:
     while True:
         # Receive data from the client
         data = client_socket.recv(1024)
-        led.on() # Turn LED on
+        #led.on() # Turn LED on
         if not data:
             break
 
@@ -51,8 +51,13 @@ while True:
         # Send the response back to the client
         client_socket.send(response_message.encode())
 
+
+
     print(f"Connection with {client_address} closed.")
     client_socket.close()
+
+    led.on() # Turn LED on
+
 
 
 
