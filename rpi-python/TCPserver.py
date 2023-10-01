@@ -52,10 +52,10 @@ def loop():
                 if received_message.lower() == 'bye':
                     print(f"Connection with {client_address} closed.")
                     break
-
-            print(f"Type a message to start a conversation with {client_address}")
-            # Get a response from the server user
-            response_message = input("Your response: ")
+            else:            
+                print(f"Type a message to start a conversation with {client_address}")
+                # Get a response from the server user
+                response_message = input("Your response: ")
 
             # Send the response back to the client
             client_socket.send(response_message.encode())
