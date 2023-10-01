@@ -1,9 +1,6 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
-const int gpio19 = 19;  // GPIO pin 19
-const int gpio16 = 16;  // GPIO pin 16
-
 void ConnectToWiFi(const char* WIFI_NETWORK, const char* WIFI_PASSWORD);
 void ConnectToServer(IPAddress server);
 void ClientRead(void);
@@ -20,10 +17,6 @@ WiFiClient client;
 void setup() {
   Serial.begin(115200);
 
-  pinMode(gpio19, OUTPUT);  // Set GPIO19 as an output
-  pinMode(gpio16, INPUT);   // Set GPIO16 as an input
-  attachInterrupt(digitalPinToInterrupt(gpio16), ClientRead, RISING);
-
   char WiFi_ssid[32] = "HOME_EXT";
   char WiFi_pswd[32] = "123456789";
 
@@ -37,10 +30,7 @@ void loop() {
 
   while(client.connected()){
 
-    while(client.available()) {
-      digitalWrite(gpio19, HIGH);
-    }
-    digitalWrite(gpio19, LOW);
+    ClientRead();
     
     while(Serial.available())
     {
