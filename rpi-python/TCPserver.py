@@ -55,10 +55,10 @@ while True:
 
 
 
-...
+'''
 while True:
   
   time.sleep(1)
   led.off() # Turn the LED off
   time.sleep(1)  # Pause for 1 second
-...
+'''
