@@ -18,12 +18,13 @@ server_socket.bind((host, port))
 # Listen for incoming connections (max queued connections is 5)
 server_socket.listen(5)
 print(f"Server listening on {host}:{port}")
-led.on() # Turn LED on
+
 
 while True:
     # Wait for a connection
     client_socket, client_address = server_socket.accept()
     print(f"Accepted connection from {client_address}")
+    led.on() # Turn LED on
 
     # Send a welcome message to the client
     welcome_message = "Welcome to the chat server! Type 'bye' to exit."
@@ -56,7 +57,6 @@ while True:
 
     print(f"Connection with {client_address} closed.")
     client_socket.close()
-
     led.off() # Turn LED off
 
     
