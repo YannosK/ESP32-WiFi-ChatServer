@@ -3,7 +3,7 @@ import gpiozero  # The GPIO library for Raspberry Pi
 import time  # Enables Python to manage timing
 
 # define the rpi GPIO
-led = gpiozero.LED(17) # Reference GPIO17
+led = gpiozero.LED(26) # Reference GPIO26
 
 # Define server address and port
 host = '0.0.0.0'  # Listen on all available interfaces
