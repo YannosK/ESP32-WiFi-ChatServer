@@ -18,6 +18,7 @@ server_socket.bind((host, port))
 # Listen for incoming connections (max queued connections is 5)
 server_socket.listen(5)
 print(f"Server listening on {host}:{port}")
+led.on() # Turn LED on
 
 while True:
     # Wait for a connection
@@ -56,7 +57,9 @@ while True:
     print(f"Connection with {client_address} closed.")
     client_socket.close()
 
-    led.on() # Turn LED on
+    led.off() # Turn LED off
+
+    
 
 
 
