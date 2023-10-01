@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 
+volatile bool dataAvailable = false;
 const int gpio19 = 19;  // GPIO pin 19
 const int gpio16 = 16;  // GPIO pin 16
 
@@ -37,16 +38,20 @@ void loop() {
 
   while(client.connected()){
 
-    while(client.available()) {
-      digitalWrite(gpio19, HIGH);
+    if (dataAvailable) {
+      while (client.available()) {
+        char c = client.read();
+        Serial.write(c);
+      }
+      dataAvailable = false;
     }
-    digitalWrite(gpio19, LOW);
     
     while(Serial.available())
     {
       String msg_to_client = Serial.readString();
       client.print(msg_to_client);
-    }   
+    }
+
   }
 
   Serial.println();
@@ -94,9 +99,5 @@ void ConnectToServer(IPAddress server)
 
 void ClientRead(void)
 {
-  // if there are incoming bytes available from the server, read them and print them:
-    while(client.available()) {      
-      char c = client.read();
-      Serial.write(c);
-    }
+  dataAvailable = true;
 }
