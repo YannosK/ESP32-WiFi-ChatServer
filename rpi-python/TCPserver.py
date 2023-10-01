@@ -22,6 +22,7 @@ def init():
     server_socket.listen(5)
     print(f"Server listening on {host}:{port}")
 
+
 # Function to handle client communication
 def handle_client(client_socket):
     # Send a welcome message to the client
@@ -65,8 +66,8 @@ def handle_client(client_socket):
             led.off()  # Turn LED off
             break
 
-# Function to handle user input
-def user_input():
+# Function to handle input from server
+def server_input():
     while True:
         response_message = input("Your response: ")
 
@@ -80,8 +81,8 @@ init()
 # Create a list to store client sockets
 clients = []
 
-# Start the user input thread
-input_thread = threading.Thread(target=user_input)
+# Start the server input thread
+input_thread = threading.Thread(target=server_input)
 input_thread.start()
 
 while True:
