@@ -42,14 +42,14 @@ def loop():
         if not readable :
             replyToClient(client_socket, readable)
              
-        clientRead(client_socket)
+        clientRead(client_socket, client_address)
 
         print(f"Connection with {client_address} closed.")
         client_socket.close()
         led.off() # Turn LED off
 
 
-def clientRead(client_socket):
+def clientRead(client_socket, client_address):
     # Receive data from the client
         data = client_socket.recv(1024)
         #if not data:
