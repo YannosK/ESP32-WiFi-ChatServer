@@ -1,4 +1,9 @@
 import socket
+import gpiozero  # The GPIO library for Raspberry Pi
+import time  # Enables Python to manage timing
+
+# define the rpi GPIO
+led = gpiozero.LED(17) # Reference GPIO17
 
 # Define server address and port
 host = '0.0.0.0'  # Listen on all available interfaces
@@ -47,3 +52,13 @@ while True:
 
     print(f"Connection with {client_address} closed.")
     client_socket.close()
+
+
+
+...
+while True:
+  
+  time.sleep(1)
+  led.off() # Turn the LED off
+  time.sleep(1)  # Pause for 1 second
+...
