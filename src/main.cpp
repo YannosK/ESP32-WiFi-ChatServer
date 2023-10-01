@@ -99,7 +99,7 @@ void ReplyToClient(void)
   Serial.print("\nMessage to client: ");
   while(!Serial.available()){
     //delay(1);
-    if (client.available()) {break;}
+    if (client.available() || client.connected()) {break;}
   }
   while(Serial.available())
     {
