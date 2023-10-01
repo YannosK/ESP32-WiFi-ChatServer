@@ -30,6 +30,24 @@ def loop():
     client_socket.send(welcome_message.encode())
 
     while True:
+        
+        
+        data = client_socket.recv(1024)
+        #led.on() # Turn LED on
+        if not data:
+            break
+
+        # Convert bytes to string
+        received_message = data.decode()
+
+        # Print the received message
+        print(f"Received message from {client_address}: {received_message}")
+
+        # Check if the client wants to exit
+        if received_message.lower() == 'bye':
+            break
+
+        '''
         try:
             # Check if there is data available for reading from the client socket
             readable, _, _ = select.select([client_socket], [], [], 0.1)
@@ -53,17 +71,18 @@ def loop():
                     print(f"Connection with {client_address} closed.")
                     break
 
-                print(f"Type a message to start a conversation with {client_address}")
-                # Get a response from the server user
-                response_message = input("Your response: ")
+            print(f"Type a message to start a conversation with {client_address}")
+            # Get a response from the server user
+            response_message = input("Your response: ")
 
-                # Send the response back to the client
-                client_socket.send(response_message.encode())
+            # Send the response back to the client
+            client_socket.send(response_message.encode())
 
         except socket.error:
             # Handle socket errors (e.g., client disconnects)
             print(f"Connection with {client_address} closed.")
             break
+        '''
         '''
         # Wait for a connection
         client_socket, client_address = server_socket.accept()
