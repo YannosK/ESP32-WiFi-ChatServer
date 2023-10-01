@@ -15,6 +15,8 @@ IPAddress server(192, 168, 1, 44);
 // that you want to connect to (port 80 is default for HTTP):
 WiFiClient client;
 
+
+
 void setup() {
   Serial.begin(115200);
 
@@ -25,6 +27,7 @@ void setup() {
 
   ConnectToServer(server);
 }
+
 
 
 void loop() {
@@ -48,6 +51,7 @@ void loop() {
 }
 
 
+
 void ConnectToWiFi(const char* WIFI_NETWORK, const char* WIFI_PASSWORD) {
   Serial.print("Connecting to WiFi");
 
@@ -69,6 +73,7 @@ void ConnectToWiFi(const char* WIFI_NETWORK, const char* WIFI_PASSWORD) {
 }
 
 
+
 void ConnectToServer(IPAddress server)
 {
   Serial.println("\nStarting connection to server...");
@@ -80,6 +85,7 @@ void ConnectToServer(IPAddress server)
     Serial.println("connected to server");
   }  
 }
+
 
 
 void ClientRead(void)
@@ -94,12 +100,13 @@ void ClientRead(void)
 }
 
 
+
 void ReplyToClient(void)
 {
   Serial.print("\nMessage to client: ");
   while(!Serial.available()){
     //delay(1);
-    if (client.available() || client.connected()) {break;}
+    if (client.available() || !client.connected()) {break;}
   }
   while(Serial.available())
     {
