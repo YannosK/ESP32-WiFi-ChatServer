@@ -29,10 +29,7 @@ def loop():
     welcome_message = "Welcome to the chat server! Type 'bye' to exit.!"
     client_socket.send(welcome_message.encode())
 
-    print(f"Type a message to start a conversation with {client_address}")
-    
     while True:
-        
         try:
             # Check if there is data available for reading from the client socket
             readable, _, _ = select.select([client_socket], [], [], 0.1)
@@ -56,6 +53,7 @@ def loop():
                     print(f"Connection with {client_address} closed.")
                     break
 
+                print(f"Type a message to start a conversation with {client_address}")
                 # Get a response from the server user
                 response_message = input("Your response: ")
 
