@@ -30,6 +30,12 @@ while True:
     welcome_message = "Welcome to the chat server! Type 'bye' to exit."
     client_socket.send(welcome_message.encode())
 
+    print(f"Type a message to start a conversation with {client_address}")
+
+    # Send message to the client
+    response_message = input("Your message: ")
+    client_socket.send(response_message.encode())
+
     while True:
         # Receive data from the client
         data = client_socket.recv(1024)
