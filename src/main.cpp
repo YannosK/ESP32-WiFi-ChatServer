@@ -4,6 +4,7 @@
 void ConnectToWiFi(const char* WIFI_NETWORK, const char* WIFI_PASSWORD);
 void ConnectToServer(IPAddress server);
 void ClientRead(void);
+void ReplyToClient(void);
 
 int status = WL_IDLE_STATUS;
 
@@ -29,14 +30,13 @@ void setup() {
 void loop() {
 
   while(client.connected()){
-
-    ClientRead();
     
-    while(Serial.available())
+    while(!client.available())
     {
-      String msg_to_client = Serial.readString();
-      client.print(msg_to_client);
-    }   
+      ReplyToClient();    
+    }
+    ClientRead();    
+    
   }
 
   Serial.println();
@@ -88,5 +88,20 @@ void ClientRead(void)
     while(client.available()) {      
       char c = client.read();
       Serial.write(c);
+    }
+}
+
+
+void ReplyToClient(void)
+{
+  Serial.print("Message to client: ");
+  while(!Serial.available()){
+    //delay(1);
+    if (client.available()) {break;}
+  }
+  while(Serial.available())
+    {
+      String msg_to_client = Serial.readString();
+      client.print(msg_to_client);
     }
 }
