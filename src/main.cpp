@@ -89,12 +89,13 @@ void ClientRead(void)
       char c = client.read();
       Serial.write(c);
     }
+    Serial.println();
 }
 
 
 void ReplyToClient(void)
 {
-  Serial.print("Message to client: ");
+  Serial.print("\nMessage to client: ");
   while(!Serial.available()){
     //delay(1);
     if (client.available()) {break;}
@@ -103,5 +104,6 @@ void ReplyToClient(void)
     {
       String msg_to_client = Serial.readString();
       client.print(msg_to_client);
+      Serial.println(msg_to_client);
     }
 }
