@@ -27,7 +27,7 @@ while True:
     led.on() # Turn LED on
 
     # Send a welcome message to the client
-    welcome_message = "Welcome to the chat server! Type 'bye' to exit."
+    welcome_message = "Welcome to the chat server! Type 'bye' to exit.!!!!!"
     client_socket.send(welcome_message.encode())
 
     print(f"Type a message to start a conversation with {client_address}")
