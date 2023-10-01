@@ -4,7 +4,7 @@
 void ConnectToWiFi(const char* WIFI_NETWORK, const char* WIFI_PASSWORD);
 void ConnectToServer(IPAddress server);
 void ClientRead(void);
-void ReplyToClient(void);
+int ReplyToClient(void);
 
 int status = WL_IDLE_STATUS;
 
@@ -101,12 +101,13 @@ void ClientRead(void)
 
 
 
-void ReplyToClient(void)
+int ReplyToClient(void)
 {
   Serial.print("\nMessage to client: ");
   while(!Serial.available()){
     //delay(1);
-    if (client.available() || !client.connected()) {break;}
+    if (client.available()) {break;}
+    if (!client.connected()) {return 0;}
   }
   while(Serial.available())
     {
@@ -114,4 +115,5 @@ void ReplyToClient(void)
       client.print(msg_to_client);
       Serial.println(msg_to_client);
     }
+  return 0;
 }
