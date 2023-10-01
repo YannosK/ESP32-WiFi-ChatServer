@@ -84,7 +84,7 @@ void ConnectToServer(IPAddress server)
 
 void ClientRead(void)
 {
-  Serial.print("\nClient says: ");
+  Serial.print("\n\nClient says: ");
   // if there are incoming bytes available from the server, read them and print them:
     while(client.available()) {      
       char c = client.read();
