@@ -34,7 +34,7 @@ void loop() {
 
   while(client.connected()){
     
-    while(!client.available())
+    while(!client.available() && client.connected())
     {
       ReplyToClient();    
     }
